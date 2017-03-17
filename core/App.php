@@ -9,8 +9,23 @@
 namespace core;
 
 
+use Twig_Environment;
+use Twig_Loader_Filesystem;
+
 class App
 {
+
+    private static $twig = null;
+
+    public static function getTwig() {
+        if(empty(self::$twig)) {
+            $loader = new Twig_Loader_Filesystem(self::params('pathToViews'));
+            self::$twig = new Twig_Environment($loader, [
+                'debug' => true,
+            ]);
+        }
+        return self::$twig;
+    }
 
     private static $params;
 

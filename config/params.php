@@ -6,4 +6,5 @@
 return [
     'reCaptchaKey' => '', //your reCaptcha key
     'reCaptchaSecret' => '',	//your reCaptcha secret
+    'pathToViews' => 'views/'
 ];
