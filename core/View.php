@@ -22,6 +22,6 @@ class View
     public function render($pathToView, $data = [])
     {
         $twig = App::getTwig();
-        echo $twig->render($pathToView.".html",$data + ['isGuest' => App::isGuest()]);
+        echo $twig->render($pathToView.".html",['brand'=>App::params('brand')] + $data + ['isGuest' => App::isGuest()]);
     }
 }
