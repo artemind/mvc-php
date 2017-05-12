@@ -2,10 +2,19 @@
 namespace core;
 class View
 {
+    private static $instance = null;
     private $pathToViews = ROOT . "/views";
     private $layout;
 
-    public function __construct()
+    public static function getInstance() {
+        if(self::$instance === null) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
+    private function __clone() {}
+    private function __construct()
     {
         $this->setLayout("main");
     }
