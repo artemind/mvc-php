@@ -56,4 +56,8 @@ class App
         session_unset();
     }
 
+    public static function getCssPath() {
+        return ROOT."/web/css/";
+    }
+
 }
