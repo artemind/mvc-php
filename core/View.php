@@ -3,7 +3,7 @@ namespace core;
 class View
 {
     private static $instance = null;
-    private $pathToViews = ROOT . "/views";
+    private $pathToViews;
     private $layout;
 
     public static function getInstance() {
@@ -17,11 +17,12 @@ class View
     private function __construct()
     {
         $this->setLayout("main");
+        $this->pathToViews = ROOT . "/views";
     }
 
     public function setLayout($layout)
     {
-        $this->layout = $this->pathToViews . "/layouts/$layout.php";
+        $this->layout = $this->pathToViews . "/layouts/$layout.html";
     }
 
     public function redirect($path) {
@@ -31,6 +32,10 @@ class View
     public function render($pathToView, $data = [])
     {
         $twig = App::getTwig();
-        echo $twig->render($pathToView.".html",['brand'=>App::params('brand')] + $data + ['isGuest' => App::isGuest()]);
+        echo $twig->render($pathToView.".html",[
+            'brand'=>App::params('brand'),
+            'isGuest' => App::isGuest(),
+            'assets' => App::getPath(),
+        ]+$data);
     }
 }
