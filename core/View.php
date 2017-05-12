@@ -2,17 +2,27 @@
 namespace core;
 class View
 {
-    private $pathToViews = ROOT . "/views";
+    private static $instance = null;
+    private $pathToViews;
     private $layout;
 
-    public function __construct()
+    public static function getInstance() {
+        if(self::$instance === null) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
+    private function __clone() {}
+    private function __construct()
     {
         $this->setLayout("main");
+        $this->pathToViews = ROOT . "/views";
     }
 
     public function setLayout($layout)
     {
-        $this->layout = $this->pathToViews . "/layouts/$layout.php";
+        $this->layout = $this->pathToViews . "/layouts/$layout.html";
     }
 
     public function redirect($path) {
@@ -22,6 +32,10 @@ class View
     public function render($pathToView, $data = [])
     {
         $twig = App::getTwig();
-        echo $twig->render($pathToView.".html",['brand'=>App::params('brand')] + $data + ['isGuest' => App::isGuest()]);
+        echo $twig->render($pathToView.".html",[
+            'brand'=>App::params('brand'),
+            'isGuest' => App::isGuest(),
+            'assets' => App::getPath(),
+        ]+$data);
     }
 }
