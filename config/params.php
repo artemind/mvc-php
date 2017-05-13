@@ -8,4 +8,5 @@ return [
     'reCaptchaSecret' => '',	//your reCaptcha secret
     'pathToViews' => ROOT.'/views/',
     'brand' => 'My Site',
+    'APP_KEY' => '',
 ];
