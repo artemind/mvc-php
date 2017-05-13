@@ -1,0 +1,17 @@
+{% extends "layouts/base.html" %}
+{% block inject %}
+	<div class="row error-bar">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-{{ type }}">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        {{ title }}
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    {{ message }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

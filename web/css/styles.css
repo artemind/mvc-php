@@ -2,3 +2,7 @@ input[type=submit].reg {
     margin-top:25px;
     margin-bottom: 25px;
 }
+
+.error-bar {
+	margin-top: 50px;
+}
