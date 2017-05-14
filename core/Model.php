@@ -11,6 +11,7 @@ namespace core;
 
 use ReCaptcha\ReCaptcha;
 use core\App;
+use core\exceptions\RuleIsNotExistsException;
 
 class Model
 {
@@ -63,7 +64,7 @@ class Model
                     }
                     break;
                 default:
-                    return false;
+                    throw new RuleIsNotExistsException("Validate rule \"{$rule[1]}\" is not exists.");
             }
         }
         return true;

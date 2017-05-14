@@ -1,6 +1,7 @@
 <?php
 namespace controllers;
 use \core\App;
+use \models\LoginForm;
 class UserController extends \core\Controller
 {
 
@@ -19,7 +20,13 @@ class UserController extends \core\Controller
 
         if(isset($_POST['login'])) {
             //todo form is submitted
-            die;
+            $form = new LoginForm();
+            $form->email = $_POST['email'];
+            $form->password = $_POST['password'];
+            if($form->login()) {
+                $this->view->redirect("/");
+                die;
+            }
         }
         return $this->view->render("user/login");
     }
