@@ -3,7 +3,8 @@
     "psr-4": {
       "core\\": "core/",
       "controllers\\": "controllers/",
-      "models\\": "models/"
+      "models\\": "models/",
+      "config\\": "config/"
     }
   },
   "require": {

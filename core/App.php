@@ -11,6 +11,7 @@ namespace core;
 
 use Twig_Environment;
 use Twig_Loader_Filesystem;
+use config\Params as appParams;
 
 class App
 {
@@ -25,7 +26,7 @@ class App
         if (empty(self::$twig)) {
             $loader = new Twig_Loader_Filesystem(self::params('pathToViews'));
             self::$twig = new Twig_Environment($loader, [
-                'debug' => true,
+                'debug' => self::params("APP_DEBUG"),
             ]);
         }
         return self::$twig;
@@ -35,16 +36,16 @@ class App
 
     /**
      * @param $key
-     * Возвращает значение параметра из файла params.php
+     * Возвращает значение параметра приложения
      * @see /config/params.php
      * @return mixed|null
      */
     public static function params($key)
     {
-        if (!isset(self::$params)) {
-            self::$params = include("/../config/params.php");
+        if(!isset(self::$params)) {
+            self::$params = appParams::getInstance();
         }
-        return isset(self::$params[$key]) ? self::$params[$key] : null;
+        return self::$params->getParam($key);
     }
 
     /**
