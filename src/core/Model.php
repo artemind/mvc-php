@@ -9,9 +9,8 @@
 namespace app\core;
 
 
+use app\core\exceptions\RuleIsNotExistsException;
 use ReCaptcha\ReCaptcha;
-use core\App;
-use core\exceptions\RuleIsNotExistsException;
 
 class Model
 {

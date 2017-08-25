@@ -100,7 +100,7 @@ class App
     }
 
     public static function views_path($child = "") {
-        $path = substr(Params::get('pathToViews'), 0, -1); //delete last "/"
+        $path = trim(Params::get('pathToViews'), '/'); //delete last "/"
         return $path . $child;
     }
 
