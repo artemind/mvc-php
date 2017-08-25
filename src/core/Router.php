@@ -6,7 +6,7 @@ class Router
     private $routes;
 
     public function __construct() {
-        $this->routes = include(ROOT.'/config/routes.php');
+        $this->routes = include(App::config_path('/routes.php'));
     }
 
     /**

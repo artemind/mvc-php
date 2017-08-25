@@ -20,7 +20,7 @@ class Params {
 			'APP_DEBUG' => true,
 			'reCaptchaKey' => '', //your reCaptcha key
 		    'reCaptchaSecret' => '',	//your reCaptcha secret
-		    'pathToViews' => ROOT.'/views/',
+		    'pathToViews' => ROOT.'/../views/',
 		    'brand' => 'My Site',
 		    'APP_KEY' => 'f19954c2c892f954c8bbe1d735c9c164',
 		];

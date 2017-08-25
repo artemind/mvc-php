@@ -108,4 +108,15 @@ class App
         return $result;
     }
 
+
+
+    public static function config_path($child = "") {
+        return ROOT . "/../config$child";
+    }
+
+    public static function views_path($child = "") {
+        $path = substr(self::params('pathToViews'), 0, -1); //delete last "/"
+        return $path . $child;
+    }
+
 }

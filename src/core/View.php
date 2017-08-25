@@ -17,7 +17,7 @@ class View
     private function __construct()
     {
         $this->setLayout("main");
-        $this->pathToViews = ROOT . "/views";
+        $this->pathToViews = App::views_path();
     }
 
     public function setLayout($layout)
