@@ -11,7 +11,6 @@ namespace app\core;
 
 use Twig_Environment;
 use Twig_Loader_Filesystem;
-use \app\config\Params as appParams;
 
 class App
 {
@@ -43,7 +42,7 @@ class App
     public static function params($key)
     {
         if(!isset(self::$params)) {
-            self::$params = appParams::getInstance();
+            self::$params = Params::getInstance();
         }
         return self::$params->getParam($key);
     }
