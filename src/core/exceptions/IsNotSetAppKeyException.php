@@ -1,5 +1,5 @@
 <?php
-namespace core\exceptions;
+namespace app\core\exceptions;
 
 class IsNotSetAppKeyException extends \Exception {
 

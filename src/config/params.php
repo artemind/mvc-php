@@ -1,8 +1,7 @@
 <?php
 
-namespace config;
-
-use core\exceptions\KeyIsNotExistsException;
+namespace app\config;
+use \app\core\exceptions\KeyIsNotExistsException;
 
 /**
 * Класс предназначен для хранения и управления 

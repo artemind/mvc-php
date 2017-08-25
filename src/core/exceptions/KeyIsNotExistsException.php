@@ -1,5 +1,5 @@
 <?php
-namespace core\exceptions;
+namespace app\core\exceptions;
 
 class KeyIsNotExistsException extends \Exception {
 	public function __construct($message = "", $code = 0, Exception $previous = null) {

@@ -1,8 +1,8 @@
 <?php
-namespace controllers;
-use \core\App;
-use \models\LoginForm;
-class UserController extends \core\Controller
+namespace app\controllers;
+use \app\core\App;
+use \app\models\LoginForm;
+class UserController extends \app\core\Controller
 {
 
     public function actionLogout() {

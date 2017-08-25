@@ -6,18 +6,18 @@
  * Time: 21:37
  */
 
-namespace core;
+namespace app\core;
 
 
 use Twig_Environment;
 use Twig_Loader_Filesystem;
-use config\Params as appParams;
+use \app\config\Params as appParams;
 
 class App
 {
-    private $cssPath = "/web/css/";
-    private $jsPath = "/web/js/";
-    private $imgPath = "/web/img/";
+    private $cssPath = "/css/";
+    private $jsPath = "/js/";
+    private $imgPath = "/img/";
 
     private static $twig = null;
 

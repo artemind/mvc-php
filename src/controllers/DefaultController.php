@@ -1,6 +1,6 @@
 <?php
-namespace controllers;
-class DefaultController extends \core\Controller
+namespace app\controllers;
+class DefaultController extends \app\core\Controller
 {
 
     public function actionIndex() {

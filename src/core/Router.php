@@ -1,6 +1,6 @@
 <?php
 
-namespace core;
+namespace app\core;
 class Router
 {
     private $routes;
@@ -27,7 +27,7 @@ class Router
                 $params = explode("/", $internalRoute);
                 $controllerName = ucfirst(array_shift($params))."Controller";
                 $actionName = "action" . ucfirst(array_shift($params));
-                $controllerName = "\\controllers\\".$controllerName;
+                $controllerName = "\\app\\controllers\\".$controllerName;
                 $controller = new $controllerName;
                 $res = call_user_func_array([$controller, $actionName], $params);
                 return true;

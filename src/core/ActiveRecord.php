@@ -1,6 +1,6 @@
 <?php
 
-namespace core;
+namespace app\core;
 
 
 abstract class ActiveRecord extends Model
@@ -37,13 +37,13 @@ abstract class ActiveRecord extends Model
         $fields = substr($fields, 0, -1);
         $values = substr($values, 0, -1);
         $query .= "$fields) VALUES ($values)";
-        $conn = \core\DB::getConnection();
+        $conn = DB::getConnection();
         $conn->query($query);
         return true;
     }
 
     public static function all($table) {
-        $conn = \core\DB::getConnection();
+        $conn = DB::getConnection();
         return $conn->query("SELECT * FROM $table");
     }
 

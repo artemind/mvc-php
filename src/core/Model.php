@@ -6,7 +6,7 @@
  * Time: 10:23
  */
 
-namespace core;
+namespace app\core;
 
 
 use ReCaptcha\ReCaptcha;
@@ -47,7 +47,7 @@ class Model
                     $tmp = is_string($this->$rule[0][0]) ? "'".$this->$rule[0][0]."'" : $this->$rule[0][0];
                     $q = "SELECT ".$rule[0][0]. " FROM ".$this->tableName() . " WHERE "
                         .$rule[0][0]. "=".$tmp." LIMIT 1";
-                    $conn = \core\DB::getConnection();
+                    $conn = DB::getConnection();
                     $res = $conn->query($q)->fetch(\PDO::FETCH_ASSOC);
                     if($res !== false) {
                         return false;
