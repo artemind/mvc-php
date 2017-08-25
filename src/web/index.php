@@ -5,14 +5,14 @@ session_start();
 define("ROOT", $_SERVER['DOCUMENT_ROOT']);
 require_once(__DIR__."/../vendor/autoload.php");
 
-use app\core\App;
 use app\core\Controller;
 use app\core\exceptions\IsNotSetAppKeyException;
+use app\core\Params;
 use app\core\Router;
 
 
 try {
-	$appCode = App::params('APP_KEY');
+	$appCode = Params::get('APP_KEY');
 	if(empty($appCode) || $appCode === null) {
 		throw new IsNotSetAppKeyException();
 	}

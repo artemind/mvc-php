@@ -33,7 +33,7 @@ class View
     {
         $twig = App::getTwig();
         echo $twig->render($pathToView.".html",[
-            'brand'=>App::params('brand'),
+            'brand'=> Params::get('brand'),
             'isGuest' => App::isGuest(),
             'assets' => App::getPath(),
         ]+$data);

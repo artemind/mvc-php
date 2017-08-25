@@ -54,7 +54,7 @@ class Model
                     }
                     break;
                 case 'captcha':
-                    $reCaptcha = new ReCaptcha(App::params('reCaptchaSecret'));
+                    $reCaptcha = new ReCaptcha(Params::get('reCaptchaSecret'));
                     $response = $reCaptcha->verify(
                         $this->captcha,
                         $_SERVER["REMOTE_ADDR"]

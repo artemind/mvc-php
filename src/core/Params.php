@@ -8,44 +8,40 @@ use \app\core\exceptions\KeyIsNotExistsException;
 * конфигурацией приложения.
 */
 class Params {
-	private static $instance;
-	private $params;
+	private static $params;
 
 	/**
 	* Инициализирует переменную $params
 	*/
-	private function init() {
-		$this->params = include(App::config_path('/params.php'));
+	private static function init() {
+	    if(!isset(self::$params)) {
+            self::$params = include(App::config_path('/params.php'));
+        }
+
 	}
 
-	private function __construct() {
-		$this->init();
-	}
+	private function __construct() {}
 
 	private function __clone() {}
 
-	public static function getInstance() {
-		if(empty(self::$instance)) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-
-	public function setParam($key, $value, $override = false) {
-		if(key_exists($key, $this->params) && !$override) {
+	public static function setParam($key, $value, $override = false) {
+	    self::init();
+		if(key_exists($key, self::$params) && !$override) {
 			return false;
 		}
-		$this->params[$key] = $value;
+		self::$params[$key] = $value;
 	}
 
-	public function getParam($key) {
-		if(!key_exists($key, $this->params)) {
+	public static function get($key) {
+        self::init();
+		if(!key_exists($key, self::$params)) {
 			throw new KeyIsNotExistsException("Параметр \"$key\" не существует!");
 		}
-		return $this->params[$key];
+		return self::$params[$key];
 	}
 
-	public function getParams() {
-		return $this->params;
+	public static function getParams() {
+        self::init();
+		return self::$params;
 	}
 }

@@ -23,29 +23,15 @@ class App
     public static function getTwig()
     {
         if (empty(self::$twig)) {
-            $loader = new Twig_Loader_Filesystem(self::params('pathToViews'));
+            $loader = new Twig_Loader_Filesystem(Params::get('pathToViews'));
             self::$twig = new Twig_Environment($loader, [
-                'debug' => self::params("APP_DEBUG"),
+                'debug' => Params::get("APP_DEBUG"),
             ]);
         }
         return self::$twig;
     }
 
     private static $params;
-
-    /**
-     * @param $key
-     * Возвращает значение параметра приложения
-     * @see /config/params.php
-     * @return mixed|null
-     */
-    public static function params($key)
-    {
-        if(!isset(self::$params)) {
-            self::$params = Params::getInstance();
-        }
-        return self::$params->getParam($key);
-    }
 
     /**
      * Проверяет пользователя на авторизованность
@@ -114,7 +100,7 @@ class App
     }
 
     public static function views_path($child = "") {
-        $path = substr(self::params('pathToViews'), 0, -1); //delete last "/"
+        $path = substr(Params::get('pathToViews'), 0, -1); //delete last "/"
         return $path . $child;
     }
 
