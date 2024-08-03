@@ -11,4 +11,6 @@ $router->addGet('/', TestController::class, 'index');
 
 $router->addGet('/test', TestController::class, 'test');
 
+$router->addGet('/view', TestController::class, 'view');
+
 return $router;

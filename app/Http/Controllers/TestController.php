@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Core\Response\JsonResponse;
+use App\Core\Response\ViewResponse;
 
 class TestController
 {
@@ -20,5 +21,10 @@ class TestController
         return [
             'action' => 'test'
         ];
+    }
+
+    public function view()
+    {
+        return new ViewResponse('index.html');
     }
 }
