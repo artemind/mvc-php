@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Core;
 
+use App\Core\Response\JsonResponse;
+use App\Core\Response\ResponseInterface;
 use Dotenv\Dotenv;
 
 class Application
@@ -34,20 +36,30 @@ class Application
         }
     }
 
-    public function handleRequest(): mixed
+    public function handleRequest(): void
     {
         $requestMethod = RequestMethod::from($_SERVER['REQUEST_METHOD']);
         $uri = $_SERVER['REQUEST_URI'];
         $route = $this->router->findRoute($requestMethod, $uri);
         if(!$route) {
             http_response_code(404);
+            echo '404 Not Found';
             //todo add 404 page
 
-            return null;
+            return;
         }
         $controller = new ($route->getClassName());
+        $response = $controller->{$route->getAction()}();
+        if($response instanceof ResponseInterface) {
+            $response->render();
 
-        return $controller->{$route->getAction()}();
+            return;
+        }
+        if(is_array($response)) {
+            (new JsonResponse($response))->render();
+
+            return;
+        }
     }
 
     public function bootstrap(): void

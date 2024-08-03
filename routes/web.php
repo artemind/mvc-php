@@ -9,4 +9,6 @@ $router = new Router();
 
 $router->addGet('/', TestController::class, 'index');
 
+$router->addGet('/test', TestController::class, 'test');
+
 return $router;
