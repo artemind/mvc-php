@@ -25,6 +25,6 @@ class TestController
 
     public function view()
     {
-        return new ViewResponse('index.html');
+        return new ViewResponse('index.twig', ['title' => 'Test Page']);
     }
 }
