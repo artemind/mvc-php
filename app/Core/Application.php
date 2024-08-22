@@ -6,6 +6,7 @@ namespace App\Core;
 
 use App\Core\Response\JsonResponse;
 use App\Core\Response\ResponseInterface;
+use App\Core\Response\ViewResponse;
 use Dotenv\Dotenv;
 
 class Application
@@ -42,9 +43,12 @@ class Application
         $uri = $_SERVER['REQUEST_URI'];
         $route = $this->router->findRoute($requestMethod, $uri);
         if(!$route) {
-            http_response_code(404);
-            echo '404 Not Found';
-            //todo add 404 page
+            if(!isset($_SERVER['HTTP_ACCEPT']) || !str_contains($_SERVER['HTTP_ACCEPT'], 'application/json')) {
+                (new ViewResponse('errors/404.twig', ['title' => '404'], 404))->render();
+
+                return;
+            }
+            (new JsonResponse([], 404))->render();
 
             return;
         }
