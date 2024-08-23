@@ -6,7 +6,8 @@ namespace App\Core;
 
 use App\Core\Response\JsonResponse;
 use App\Core\Response\ResponseInterface;
-use App\Core\Response\ViewResponse;
+use App\Exceptions\RenderableExceptions\AbstractRenderableException;
+use App\Exceptions\RenderableExceptions\NotFoundException;
 use Dotenv\Dotenv;
 
 class Application
@@ -39,30 +40,33 @@ class Application
 
     public function handleRequest(): void
     {
-        $requestMethod = RequestMethod::from($_SERVER['REQUEST_METHOD']);
-        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $route = $this->router->findRoute($requestMethod, $uri);
-        if(!$route) {
-            if(Request::expectsJsonResponse()) {
-                (new JsonResponse([], 404))->render();
+        try {
+            $requestMethod = RequestMethod::from($_SERVER['REQUEST_METHOD']);
+            $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            $route = $this->router->findRoute($requestMethod, $uri);
+            if(!$route) {
+                throw new NotFoundException('Page Not Found');
+            }
+            if(!class_exists($route->getClassName())) {
+                throw new NotFoundException("Controller {$route->getClassName()} Not Found.");
+            }
+            $controller = new ($route->getClassName());
+            if(!method_exists($controller, $route->getAction())) {
+                throw new NotFoundException("Method '{$route->getAction()}' Not Found in '{$route->getClassName()}'");
+            }
+            $response = $controller->{$route->getAction()}();
+            if($response instanceof ResponseInterface) {
+                $response->render();
 
                 return;
             }
-            (new ViewResponse('errors/404.twig', ['title' => '404'], 404))->render();
+            if(is_array($response)) {
+                (new JsonResponse($response))->render();
 
-            return;
-        }
-        $controller = new ($route->getClassName());
-        $response = $controller->{$route->getAction()}();
-        if($response instanceof ResponseInterface) {
-            $response->render();
-
-            return;
-        }
-        if(is_array($response)) {
-            (new JsonResponse($response))->render();
-
-            return;
+                return;
+            }
+        } catch (AbstractRenderableException $exception) {
+            $exception->render();
         }
     }
 
