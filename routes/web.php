@@ -7,10 +7,10 @@ use App\Http\Controllers\TestController;
 
 $router = new Router();
 
-$router->addGet('/', TestController::class, 'index');
+$router->addGet('/json', TestController::class, 'testJson');
 
-$router->addGet('/test', TestController::class, 'test');
+$router->addGet('/array', TestController::class, 'testArray');
 
-$router->addGet('/view', TestController::class, 'view');
+$router->addGet('/view', TestController::class, 'testView');
 
 return $router;

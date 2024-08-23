@@ -40,15 +40,15 @@ class Application
     public function handleRequest(): void
     {
         $requestMethod = RequestMethod::from($_SERVER['REQUEST_METHOD']);
-        $uri = $_SERVER['REQUEST_URI'];
+        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $route = $this->router->findRoute($requestMethod, $uri);
         if(!$route) {
-            if(!isset($_SERVER['HTTP_ACCEPT']) || !str_contains($_SERVER['HTTP_ACCEPT'], 'application/json')) {
-                (new ViewResponse('errors/404.twig', ['title' => '404'], 404))->render();
+            if(Request::expectsJsonResponse()) {
+                (new JsonResponse([], 404))->render();
 
                 return;
             }
-            (new JsonResponse([], 404))->render();
+            (new ViewResponse('errors/404.twig', ['title' => '404'], 404))->render();
 
             return;
         }
