@@ -1,6 +1,13 @@
 {
     "name": "artemind/mvc-php",
     "type": "project",
+    "keywords": [
+        "mvc",
+        "artemind",
+        "model",
+        "view",
+        "controller"
+    ],
     "autoload": {
         "psr-4": {
             "App\\": "app/"
@@ -8,7 +15,10 @@
     },
     "authors": [
         {
-            "name": "Artem Yeremenko"
+            "name": "Artem Yeremenko",
+            "email": "contact@artemind.dev",
+            "homepage": "https://artemind.dev",
+            "role": "Developer"
         }
     ],
     "require": {
